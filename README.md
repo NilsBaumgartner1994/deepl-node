@@ -73,7 +73,7 @@ possible:
 
 ```javascript
 translator
-    .translateText('Hello, world!', null, 'fr')
+    .translateText('Hello, world!', null, 'fr-FR')
     .then((result) => {
         console.log(result.text); // Bonjour, le monde !
     })
@@ -88,7 +88,7 @@ The package also supports TypeScript:
 import * as deepl from 'deepl-node';
 
 (async () => {
-    const targetLang: deepl.TargetLanguageCode = 'fr';
+    const targetLang: deepl.TargetLanguageCode = 'fr-FR';
     const results = await translator.translateText(
         ['Hello, world!', 'How are you?'],
         null,
@@ -123,7 +123,7 @@ detected source language code.
 
 ```javascript
 // Translate text into a target language, in this case, French:
-const translationResult = await translator.translateText('Hello, world!', 'en', 'fr');
+const translationResult = await translator.translateText('Hello, world!', 'en-GB', 'fr-FR');
 console.log(translationResult.text); // 'Bonjour, le monde !'
 
 // Translate multiple texts into British English:
@@ -138,8 +138,8 @@ console.log(translations[1].text); // 'How are you?'
 console.log(translations[1].detectedSourceLang); // 'es'
 
 // Translate into German with less and more Formality:
-console.log(await translator.translateText('How are you?', null, 'de', { formality: 'less' })); // 'Wie geht es dir?'
-console.log(await translator.translateText('How are you?', null, 'de', { formality: 'more' })); // 'Wie geht es Ihnen?'
+console.log(await translator.translateText('How are you?', null, 'de-DE', { formality: 'less' })); // 'Wie geht es dir?'
+console.log(await translator.translateText('How are you?', null, 'de-DE', { formality: 'more' })); // 'Wie geht es Ihnen?'
 ```
 
 #### Text translation options
@@ -200,8 +200,8 @@ try {
     await translator.translateDocument(
         'Instruction Manual.docx',
         'Bedienungsanleitung.docx',
-        'en',
-        'de',
+        'en-GB',
+        'de-DE',
         { formality: 'more' },
     );
 } catch (error) {
@@ -246,7 +246,7 @@ pair. Note: glossaries are only supported for some language pairs, check the
 ```javascript
 // Create an English to German glossary with two terms:
 const entries = new deepl.GlossaryEntries({ entries: { artist: 'Maler', prize: 'Gewinn' } });
-const glossaryEnToDe = await translator.createGlossary('My glossary', 'en', 'de', entries);
+const glossaryEnToDe = await translator.createGlossary('My glossary', 'en-GB', 'de-DE', entries);
 ```
 
 You can also upload a glossary downloaded from the DeepL website using
@@ -258,8 +258,8 @@ or FileHandle containing the CSV file content:
 const csvFilePath = '/path/to/glossary_file.csv';
 const glossaryEnToDe = await translator.createGlossaryFromCsv(
     'My glossary',
-    'en',
-    'de',
+    'en-GB',
+    'de-DE',
     csvFilePath);
 ```
 
@@ -285,8 +285,8 @@ the function call. The source and target languages must match the glossary.
 ```javascript
 const resultWithGlossary = await translator.translateText(
     'The artist was awarded a prize.',
-    'en',
-    'de',
+    'en-GB',
+    'de-DE',
     { glossary },
 );
 console.log(resultWithGlossary.text); // 'Der Maler wurde mit einem Gewinn ausgezeichnet.'
